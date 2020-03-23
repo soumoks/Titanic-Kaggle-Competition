@@ -46,13 +46,14 @@ df2.Title = df2.Title.replace(regex={
     r'.*, Mme.*': 'Mrs',
     r'.*, Mlle.*': 'Miss',
     r'.*, Ms.*': 'Mrs',
-    r'.*, Mr.*': 'Mr',
     r'.*, Mrs.*': 'Mrs',
+    r'.*, Mr.*': 'Mr',
     r'.*, Miss.*': 'Miss',
     r'.*, Master.*': 'Master',
     r'.*, Lady.*': 'Royalty'
 })
 axes = sns.factorplot('Title','Survived', data=df2, aspect = 2.5)
+df2.Title = df2.Title.replace({'Officer': 1, 'Mrs': 2, 'Miss': 3, 'Mr': 4, 'Master': 5, 'Royalty': 6})
 
 # %%
 # Add a feature called AgeGroup
@@ -90,14 +91,11 @@ axes = sns.factorplot('Sex','Survived', data=df3, aspect = 2.5)
 df5=df4
 
 df5 = df5.dropna(subset=['AgeGroup'])
-#Replace titles with dummies
-df5.Title = df5.Title.replace({'Officer': 1, 'Mrs': 2, 'Miss': 3, 'Mr': 4, 'Master': 5, 'Royalty': 6})
 df5 = df5.loc[:, ['AgeGroup', 'Sex', 'Title', 'FamilySize', 'Survived']]
 
 
-
 # %%
-# Train a model
+# Train a RandomForst model
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import cross_val_score
 df6 = df5
@@ -111,14 +109,11 @@ print('RandomForst, Train score:', cross_val_score(clf, X_train, y_train, cv=20)
 print('RandomForst, Test score:', cross_val_score(clf, X_test, y_test, cv=20).mean())
 
 # %%
-
+# Train a Decision Tree model
 clf = tree.DecisionTreeClassifier()
 clf.fit(X_train, y_train)
 #print(clf.score(X_test, y_test))
 print('DecisionTree, Train score:', cross_val_score(clf, X_train, y_train, cv=20).mean())
 print('DecisionTree, Test score:', cross_val_score(clf, X_test, y_test, cv=20).mean())
-
-
-
 
 # %%
