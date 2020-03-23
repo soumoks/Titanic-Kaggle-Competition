@@ -220,7 +220,7 @@ n_estimators = [int(x) for x in np.linspace(start = 200, stop = 2000, num = 10)]
 # Number of features to consider at every split
 max_features = ['auto', 'sqrt']
 # Maximum number of levels in tree
-max_depth = [int(x) for x in np.linspace(1,20, num = 5)]
+max_depth = [int(x) for x in np.linspace(40,60, num = 5)]
 max_depth.append(None)
 # Minimum number of samples required to split a node
 min_samples_split = [3, 4, 5, 6, 7]
@@ -228,6 +228,8 @@ min_samples_split = [3, 4, 5, 6, 7]
 min_samples_leaf = [1,2,5]
 # Method of selecting samples for training each tree
 bootstrap = [True, False]
+
+max_features = [2, 4, 6, 8]
 # Create the random grid
 random_grid = {'n_estimators': n_estimators,
                'max_features': max_features,
